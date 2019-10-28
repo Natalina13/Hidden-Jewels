@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+
+
+	<header class="jumbotron">
+		<div class="container">
+			<h1>
+	Welcome To Yelp Travel
+</h1>
+	<p>
+		View our hand picked secluded travel sites from all over the world
+		</p>
+		<p>
+			<a class ="btn btn-primary btn-lg" href="/travel/new">Add new sites</a>
+		</p>
+		</div>
+</header>
+	
+<div class="row">
+	<div class="col-lg-12">
+		<h3>
+			Our most popular secular travel sites!!
+		</h3>
+	</div>
+</div>
+
+	<div class="row text-center" style="display: flex; flex-wrap: wrap">
+		<% travel.forEach(function(travel){ %>
+<div class="col-md-3 col-sm-6">
+	<div class="thumbnail">
+		<img src="<%= travel.image %>">
+		<div class="caption">
+			<h4>
+		<%= travel.name %>
+	</h4>
+			<a class="btn btn-lg btn-primary" href="/travel/<%= travel._id %>" >More info</a>
+		</div>
+	</div>
+	
+	
+</div>
+<% }) %>
+		
+	</div>
+
+<% include ../partials/footer %>
+
+

@@ -1,0 +1,27 @@
+<% include ./partials/header %>
+
+<div class="row">
+	<h1 style="text-align: center">
+	 Login
+</h1>
+	<div style="width: 30%; margin: 25px auto;">
+		<form action="/login" method="post">
+			<div class="form-group">
+				<input  class="form-control" type="text" placeholder="username" name="username">
+			</div>
+			<div class="form-group">
+				<input  class="form-control" type="password" placeholder="password" name="password">
+			</div>
+			<div class="form-group text-center">
+				<button class="btn btn-lg btn-primary ">
+		Login
+	</button>
+				<a class="btn btn-lg btn-primary " href="/forgot">
+		Forgot Password
+	</a>
+			</div>
+</form>
+		<a href="/travel">Go Back</a>
+	</div>
+</div>
+<% include ./partials/footer %>
