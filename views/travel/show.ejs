@@ -1,0 +1,104 @@
+<% include ../partials/header %>
+
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">
+				Yelp Travel
+			</p>
+			<div class="list-group">
+				<li class="list-group-item active">Info 1</li>
+				<li class="list-group-item">Info 1</li>
+				<li class="list-group-item">Info 1</li>
+			</div>
+			<div id="map">
+				
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%= travelsite.image %>">
+				<div class="caption-full">
+					<h4 class="pull-right">
+						$<%= travelsite.price %>/night
+					</h4>
+					<h4><a><%= travelsite.name %></a>	
+					</h4>
+					<p>
+						<%= travelsite.description %>
+					</p>
+					<p><em>Submitted By <a href="/users/<%= travelsite.author.id %>"><%= travelsite.author.username %></a>, <%= moment(travelsite.createdAt).fromNow() %>
+						</em>
+					</p>
+					
+					<% if((currentUser && travelsite.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) {%>
+						  <a href="/travel/<%= travelsite._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
+					<form action="/travel/<%= travelsite._id%>/?_method=DELETE" method="POST" class="deleteform">
+					<button class="btn btn-danger btn-sm">
+						Delete
+						</button>	
+					</form>
+						 <% } %>
+				</div>
+			</div>
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-lg btn-success" href="/travel/<%= travelsite._id %>/comments/new">Add new comment</a>
+				</div>
+				<hr>
+				<% travelsite.comments.forEach(function(comment){ %>
+				<div class="row">
+					<div class="col-md-12">
+						<strong><%= comment.author.username %></strong>
+						<span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+						<br>
+								<p style="display: inline-block">
+							<%= comment.text %>
+						</p>
+						<% if((currentUser && comment.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) {%>
+						<span class="pull-right">
+						<a class="btn btn-xs btn-warning" href="/travel/<%= travelsite._id %>/comments/<%= comment._id%>/edit">Edit</a>
+						<form style="display: inline-block" action="/travel/<%= travelsite._id %>/comments/<%= comment._id%>/?_method=DELETE" method="POST" class="deleteform">
+					<button class="btn btn-danger btn-xs">
+						Delete
+						</button>	
+					</form>
+							</span>	
+						<% } %>	
+					</div>
+				</div>
+<% }) %>
+			</div>
+		</div>
+	</div>
+
+<script>
+  function initMap() {
+    var lat = <%= travelsite.lat %>;
+    var lng = <%= travelsite.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= travelsite.name %><br />
+      <%= travelsite.location %></strong>
+      <p><%= travelsite.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB5yURI7e-aO2Vvbn-uOTAXcCYtvp781c&callback=initMap"></script>
+
+
+<% include ../partials/footer %>

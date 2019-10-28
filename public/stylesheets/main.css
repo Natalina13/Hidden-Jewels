@@ -1,0 +1,24 @@
+.thumbnail img{
+	width: 100%;
+}
+.thumbnail{
+	padding: 0;
+}
+.thumbnail .caption-full {
+	padding: 9px;
+}
+.deleteform {
+	display: inline;
+}
+/* Google Maps */
+#map {
+    height: 400px;
+    width: 100%;
+}
+#siteinfo {
+	width: 30%;
+}
+#site-search{
+	display: inline; 
+	padding: 8px 0;
+}

@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+<div class="row">
+	<div class="col-md-4">
+		<h1>
+			<%= user.firstName + " " + user.lastName %>
+		</h1>
+		<div class="thumbnail">
+			<img src="<%= user.avatar %>" alt="User profile image">
+			<div class="caption">
+				<a href="mailto:<%= user.email %>"><%= user.email %></a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<h3>
+			<%= user.username %>'s Travel Sites
+		</h3>
+		<ul style="list-style-type: none">
+			
+		<% sites.forEach((site) => { %>
+			<li><div class="thumbnail" id="siteinfo">
+				<img src="<%= site.image %>">
+				<div class="caption">
+					<a href="/travel/<%= site.id %>"><%= site.name %></a>
+				</div>
+			</div>
+		<% }) %></li>
+			
+		</ul>
+	</div>
+</div>
+
+
+<% include ../partials/footer %>
